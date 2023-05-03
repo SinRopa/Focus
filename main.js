@@ -75,6 +75,7 @@ function LoadGame()
     
     //UpdateEnemyStats();
     UpdatePlayerStats();
+    PredictEnemyStats();
     DrawStage();
     
 }
@@ -109,10 +110,11 @@ function UpdatePlayerStats()
     GameData.Player_AttackPower = 2 + GameData.Training_Levels_Attack;
     GameData.Player_Defense = GameData.Training_Levels_Defense;
 
-    interface.StatsTextAttack.innerHTML = Math.floor(GameData.Player_AttackPower);
+    interface.StatsTextAttack.innerHTML = Math.floor(GameData.Player_AttackPower).toLocaleString();
 
-    interface.StatsTextDefense.innerHTML = Math.floor(GameData.Player_Defense);
-    interface.StatsTextHealth.innerHTML = Math.floor(GameData.PlayerHP_Max);
+    interface.StatsTextDefense.innerHTML = Math.floor(GameData.Player_Defense).toLocaleString();
+    interface.StatsTextHealth.innerHTML = Math.floor(GameData.PlayerHP_Max).toLocaleString();
+    
 }
 function RevivePlayer()
 {
@@ -147,12 +149,26 @@ function KillEnemy()
 {
     GameData.Combat = false;
     if(GameData.CurrentStage >1 && GameData.CurrentStage %10 == 0){GameData.Focus_BossDropped++; $('#Toast_BossKill').toast('show');}
-    if(GameData.CurrentStage > GameData.MaxStageReached){GameData.MaxStageReached = GameData.CurrentStage; }
+    if(GameData.CurrentStage > GameData.MaxStageReached){GameData.MaxStageReached = GameData.CurrentStage; PredictEnemyStats();}
     GameData.CurrentStage++;
     DrawStage();
     CalculateTotalFocus();
     UpdateEnemyStats();
     GameData.Combat = true;
+    
+    
+}
+
+function PredictEnemyStats()
+{
+//Max Enemy Data Update
+let targetenemy = GameData.MaxStageReached+1;
+interface.EnemyStatsTextAttack.innerHTML = Math.floor((1 + Math.pow(1.4, targetenemy))).toLocaleString();
+
+interface.EnemyStatsTextDefense.innerHTML = Math.floor((Math.pow(1.1, targetenemy))).toLocaleString();
+interface.EnemyStatsTextHealth.innerHTML = Math.floor((100 * Math.pow(1.5, targetenemy))).toLocaleString();
+interface.EnemyStatsTextLevel.innerHTML = targetenemy.toLocaleString();
+
 }
 
 function DrawStage()
@@ -309,6 +325,11 @@ HealthProgress : document.getElementById('Data_Health_Training'),
 StatsTextHealth: document.getElementById('Data_Player_MaxHealth'),
 StatsTextAttack: document.getElementById('Data_Player_Attack_Power'),
 StatsTextDefense: document.getElementById('Data_Player_Defense_Power'),
+
+EnemyStatsTextHealth: document.getElementById('Data_Enemy_MaxHealth'),
+EnemyStatsTextAttack: document.getElementById('Data_Enemy_Attack_Power'),
+EnemyStatsTextDefense: document.getElementById('Data_Enemy_Defense_Power'),
+EnemyStatsTextLevel: document.getElementById('Data_Enemy_Level'),
 
 }
 
