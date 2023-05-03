@@ -74,7 +74,7 @@ function LoadGame()
     //if (typeof savegame. !== "undefined") GameData. = savegame.;
     
     //UpdateEnemyStats();
-    //UpdatePlayerStats();
+    UpdatePlayerStats();
     DrawStage();
     
 }
