@@ -22,7 +22,6 @@ var GameData =
     Training_Levels_Defense: 0,
     Training_Levels_Health: 0,
 
-    //not saved
     Player_AttackPower : 2,
     Enemy_AttackPower : 2,
 
@@ -61,23 +60,21 @@ function LoadGame()
     if (typeof savegame.Focus_BossDropped !== "undefined") GameData.Focus_BossDropped = savegame.Focus_BossDropped;
     if (typeof savegame.Focus_Training_Attack !== "undefined") GameData.Focus_Training_Attack = savegame.Focus_Training_Attack;
     if (typeof savegame.Focus_Training_Defense !== "undefined") GameData.Focus_Training_Defense = savegame.Focus_Training_Defense;
+    if (typeof savegame.Focus_Training_Health !== "undefined") GameData.Focus_Training_Health = savegame.Focus_Training_Health;
     if (typeof savegame.Training_Levels_Attack !== "undefined") GameData.Training_Levels_Attack = savegame.Training_Levels_Attack;
     if (typeof savegame.Training_Levels_Defense !== "undefined") GameData.Training_Levels_Defense = savegame.Training_Levels_Defense;
-    if (typeof savegame.Focus_Training_Health !== "undefined") GameData.Focus_Training_Health = savegame.Focus_Training_Health;
-    if (typeof savegame.Training_Levels_Defense !== "undefined") GameData.Training_Levels_Defense = savegame.Training_Levels_Defense;
+    if (typeof savegame.Training_Levels_Health !== "undefined") GameData.Training_Levels_Health = savegame.Training_Levels_Health;
     if (typeof savegame.Player_AttackPower !== "undefined") GameData.Player_AttackPower = savegame.Player_AttackPower;
     if (typeof savegame.Enemy_AttackPower !== "undefined") GameData.Enemy_AttackPower = savegame.Enemy_AttackPower;
     if (typeof savegame.Player_Defense !== "undefined") GameData.Player_Defense = savegame.Player_Defense;
     if (typeof savegame.Enemy_Defense !== "undefined") GameData.Enemy_Defense = savegame.Enemy_Defense;
-    //if (typeof savegame.Combat !== "undefined") GameData.Combat = savegame.Combat;
     if (typeof savegame.Training_Progress_Attack !== "undefined") GameData.Training_Progress_Attack = savegame.Training_Progress_Attack;
     if (typeof savegame.Training_Progress_Defense !== "undefined") GameData.Training_Progress_Defense = savegame.Training_Progress_Defense;
     if (typeof savegame.Training_Progress_Health !== "undefined") GameData.Training_Progress_Health = savegame.Training_Progress_Health;
     //if (typeof savegame. !== "undefined") GameData. = savegame.;
     
-
-    UpdateEnemyStats();
-    UpdatePlayerStats();
+    //UpdateEnemyStats();
+    //UpdatePlayerStats();
     DrawStage();
     
 }
