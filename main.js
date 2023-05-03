@@ -275,6 +275,17 @@ GameData.Focus_Available =  GameData.Focus_Total - GameData.Focus_Training_Attac
 DrawTraining();
 }
 
+
+function BalanceFocus()
+{
+    let bal = Math.floor(GameData.Focus_Total / 3);
+    GameData.Focus_Training_Attack = bal;
+    GameData.Focus_Training_Defense = bal;
+    GameData.Focus_Training_Health = bal;
+    GameData.Focus_Available =  GameData.Focus_Total - GameData.Focus_Training_Attack - GameData.Focus_Training_Defense - GameData.Focus_Training_Health;
+    DrawTraining();
+}
+
 var interface = 
 {
 PlayerHPBar : document.getElementById('Data_Player_HPBar'),

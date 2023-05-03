@@ -79,7 +79,7 @@
           <tr>
             <th scope="col">Stat</th>
             <th scope="col">Focus</th>
-            <th scope="col">Adjust</th>
+            <th scope="col">Adjust <button type="button" class="btn btn-secondary btn-sm" onclick="BalanceFocus()">Balance</button></th>
             <th scope="col">Level</th>
             <th scope="col">Effect</th>
           </tr>
@@ -89,11 +89,11 @@
             <td><span id="Data_Active_Attack_Focus"> 0</span></td>
             <td>
               
-              <button type="button" class="btn btn-danger" onclick="RemoveFocus(1, 'A')">-</button>
-              <button type="button" class="btn btn-success" onclick="AddFocus(1, 'A')">+</button>
+              <button type="button" class="btn btn-danger btn-sm" onclick="RemoveFocus(1, 'A')">-</button>
+              <button type="button" class="btn btn-success btn-sm" onclick="AddFocus(1, 'A')">+</button>
               
-              <button type="button" class="btn btn-warning" onclick="MaxFocus('A')">Max</button>
-              <button type="button" class="btn btn-info" onclick="DropFocus('A')">Drop</button>
+              <button type="button" class="btn btn-warning btn-sm" onclick="MaxFocus('A')">Max</button>
+              <button type="button" class="btn btn-info btn-sm" onclick="DropFocus('A')">Drop</button>
             </td>
             <td> <span id="Data_Current_Attack_Level"> 0</span> </td>
             <td>Attack Damage <span id="Data_Player_Attack_Power">0</span></td>
@@ -107,11 +107,11 @@
           <td>Defense:</td>
           <td><span id="Data_Active_Defense_Focus"> 0</span></td>
           <td>
-            <button type="button" class="btn btn-danger" onclick="RemoveFocus(1, 'D')">-</button>
-            <button type="button" class="btn btn-success" onclick="AddFocus(1, 'D')">+</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="RemoveFocus(1, 'D')">-</button>
+            <button type="button" class="btn btn-success btn-sm" onclick="AddFocus(1, 'D')">+</button>
             
-            <button type="button" class="btn btn-warning" onclick="MaxFocus('D')">Max</button>
-            <button type="button" class="btn btn-info" onclick="DropFocus('D')">Drop</button>
+            <button type="button" class="btn btn-warning btn-sm" onclick="MaxFocus('D')">Max</button>
+            <button type="button" class="btn btn-info btn-sm" onclick="DropFocus('D')">Drop</button>
           </td>
           <td> <span id="Data_Current_Defense_Level"> 0</span> </td>
           <td>Damage Blocked <span id="Data_Player_Defense_Power">0</span></td>
@@ -125,11 +125,11 @@
         <td>Health:</td>
         <td><span id="Data_Active_Health_Focus"> 0</span></td>
         <td>
-          <button type="button" class="btn btn-danger" onclick="RemoveFocus(1, 'H')">-</button>
-          <button type="button" class="btn btn-success" onclick="AddFocus(1, 'H')">+</button>
+          <button type="button" class="btn btn-danger btn-sm" onclick="RemoveFocus(1, 'H')">-</button>
+          <button type="button" class="btn btn-success btn-sm" onclick="AddFocus(1, 'H')">+</button>
           
-          <button type="button" class="btn btn-warning" onclick="MaxFocus('H')">Max</button>
-          <button type="button" class="btn btn-info" onclick="DropFocus('H')">Drop</button>
+          <button type="button" class="btn btn-warning btn-sm" onclick="MaxFocus('H')">Max</button>
+          <button type="button" class="btn btn-info btn-sm" onclick="DropFocus('H')">Drop</button>
         </td>
         <td> <span id="Data_Current_Health_Level"> 0</span> </td>
         <td>Max Health <span id="Data_Player_MaxHealth">0</span></td>
