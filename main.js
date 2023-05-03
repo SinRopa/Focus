@@ -348,7 +348,8 @@ window.setInterval(function(){
 
 
 $(document).ready(function(){
-    
+    UpdatePlayerStats();
+    PredictEnemyStats();
     
 });
 
