@@ -137,7 +137,7 @@ function DrawHpBars()
 }
 
 function GetPlayerBaseHP(){return 100+ (4 * Math.pow(1.04, GameData.Training_Levels_Health))}
-function GetPlayerBaseAttack(){return 2 + GameData.Training_Levels_Attack * 2;}
+function GetPlayerBaseAttack(){return 2 + (GameData.Training_Levels_Attack * 2) + ((GameData.Training_Levels_Attack/100)*10)+((GameData.Training_Levels_Attack/1000)*100);}
 function GetPlayerBaseDefense(){return GameData.Training_Levels_Defense + (GameData.Training_Levels_Defense/10)}
 function UpdatePlayerStats()
 {
