@@ -192,7 +192,7 @@ function KillEnemy()
     UpdateEnemyStats();
     GameData.Combat = true;
     
-    
+    interface.StatsMenuBossKills.innerHTML = GameData.Focus_BossDropped-1;
 }
 
 function PredictEnemyStats()
@@ -378,6 +378,8 @@ FocusBonusTextAttack: document.getElementById('Data_Focus_Bonus_Attack'),
 FocusBonusTextDefense: document.getElementById('Data_Focus_Bonus_Defense'),
 FocusBonusTextHealing: document.getElementById('Data_Focus_Bonus_Healing'),
 FocusBonusTextRegen: document.getElementById('Data_Focus_Bonus_Regen'),
+
+StatsMenuBossKills: document.getElementById('Data_Boss_Kills'),
 }
 
 
@@ -397,7 +399,8 @@ window.setInterval(function(){
 $(document).ready(function(){
     UpdateFocusDistribution();
     PredictEnemyStats();
-    
+    interface.StatsMenuBossKills.innerHTML = GameData.Focus_BossDropped-1;
+
 });
 
 window.setInterval(function(){SaveGame();}, 30000);
