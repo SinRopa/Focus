@@ -33,6 +33,11 @@ var GameData =
     Training_Progress_Attack: 0,
     Training_Progress_Defense: 0,
     Training_Progress_Health: 0,
+
+    
+    Focus_Ratio_Attack: 0,
+    Focus_Ratio_Defense: 0,
+    Focus_Ratio_Health: 0,
 }
 
 
@@ -73,18 +78,44 @@ function LoadGame()
     if (typeof savegame.Training_Progress_Health !== "undefined") GameData.Training_Progress_Health = savegame.Training_Progress_Health;
     //if (typeof savegame. !== "undefined") GameData. = savegame.;
     
+    if (typeof savegame.Focus_Ratio_Attack !== "undefined") GameData.Focus_Ratio_Attack = savegame.Focus_Ratio_Attack;
+    if (typeof savegame.Focus_Ratio_Defense !== "undefined") GameData.Focus_Ratio_Defense = savegame.Focus_Ratio_Defense;
+    if (typeof savegame.Focus_Ratio_Health !== "undefined") GameData.Focus_Ratio_Health = savegame.Focus_Ratio_Health;
+    
     //UpdateEnemyStats();
-    UpdatePlayerStats();
+    UpdateFocusDistribution();
     PredictEnemyStats();
     DrawStage();
     
 }
 
+function UpdateFocusDistribution()
+{
+    let total = GameData.Focus_Total;
+
+    GameData.Focus_Ratio_Attack = (GameData.Focus_Training_Attack/total);
+    GameData.Focus_Ratio_Defense = (GameData.Focus_Training_Defense/total);
+    GameData.Focus_Ratio_Health = (GameData.Focus_Training_Health/total);
+
+    interface.FocusBonusTextAttack.innerHTML = Math.floor(GameData.Focus_Ratio_Attack*1000)/10 +"%";
+    interface.FocusBonusTextDefense.innerHTML = Math.floor(GameData.Focus_Ratio_Defense*1000)/10 +"%";
+    interface.FocusBonusTextHealing.innerHTML = Math.floor(GameData.Focus_Ratio_Health*1000)/10 +"%";
+    interface.FocusBonusTextRegen.innerHTML = Math.floor(GetHealthRegen()*10)/10;
+    UpdatePlayerStats();
+}
+
+function GetHealthRegen()
+{
+
+    return (GameData.PlayerHP_Max * GameData.Focus_Ratio_Health)/100;
+}
 function Combat()
 {
     
     
     if(GameData.Combat){
+    GameData.PlayerHP_Current += GetHealthRegen(); 
+    if(GameData.PlayerHP_Current > GameData.PlayerHP_Max){GameData.PlayerHP_Current = GameData.PlayerHP_Max;}
     GameData.EnemyHP_Current -= Math.max(0,GameData.Player_AttackPower - GameData.Enemy_Defense);
     GameData.PlayerHP_Current -= Math.max(0, GameData.Enemy_AttackPower - GameData.Player_Defense);
 
@@ -104,11 +135,16 @@ function DrawHpBars()
     interface.EnemyHPBAR.style.width = ((GameData.EnemyHP_Current / GameData.EnemyHP_Max)*100) +"%";
 
 }
+
+function GetPlayerBaseHP(){return 100+ (10 * Math.pow(1.05, GameData.Training_Levels_Health))}
+function GetPlayerBaseAttack(){return 2 + GameData.Training_Levels_Attack * 2;}
+function GetPlayerBaseDefense(){return GameData.Training_Levels_Defense + (GameData.Training_Levels_Defense/10)}
 function UpdatePlayerStats()
 {
-    GameData.PlayerHP_Max = 100+ (10 * Math.pow(1.05, GameData.Training_Levels_Health));
-    GameData.Player_AttackPower = 2 + GameData.Training_Levels_Attack;
-    GameData.Player_Defense = GameData.Training_Levels_Defense;
+    
+    GameData.PlayerHP_Max = GetPlayerBaseHP();
+    GameData.Player_AttackPower = GetPlayerBaseAttack() * (1+GameData.Focus_Ratio_Attack);
+    GameData.Player_Defense = GetPlayerBaseDefense()* (1+GameData.Focus_Ratio_Defense);
 
     interface.StatsTextAttack.innerHTML = Math.floor(GameData.Player_AttackPower).toLocaleString();
 
@@ -118,7 +154,7 @@ function UpdatePlayerStats()
 }
 function RevivePlayer()
 {
-    UpdatePlayerStats();
+    UpdateFocusDistribution();
     GameData.PlayerHP_Current = GameData.PlayerHP_Max;
     GameData.Combat = true;
 }
@@ -248,7 +284,7 @@ function CalculateTotalFocus()
 {
     GameData.Focus_Total = 1+ (GameData.Focus_BossDropped * GameData.MaxStageReached);
     GameData.Focus_Available =  GameData.Focus_Total - GameData.Focus_Training_Attack - GameData.Focus_Training_Defense - GameData.Focus_Training_Health;
-
+    UpdateFocusDistribution();
 }
 function AddFocus(value, stat)
 {
@@ -258,6 +294,7 @@ if(stat == "D" && GameData.Focus_Available >= value){GameData.Focus_Training_Def
 if(stat == "H" && GameData.Focus_Available >= value){GameData.Focus_Training_Health += value;}
 
 GameData.Focus_Available =  GameData.Focus_Total - GameData.Focus_Training_Attack - GameData.Focus_Training_Defense - GameData.Focus_Training_Health;
+UpdateFocusDistribution();
 DrawTraining();
 }
 function RemoveFocus(value, stat)
@@ -268,6 +305,7 @@ if(stat == "D" && GameData.Focus_Training_Defense >= value){GameData.Focus_Train
 if(stat == "H" && GameData.Focus_Training_Health >= value){GameData.Focus_Training_Health -= value;}
 
 GameData.Focus_Available =  GameData.Focus_Total - GameData.Focus_Training_Attack - GameData.Focus_Training_Defense - GameData.Focus_Training_Health;
+UpdateFocusDistribution();
 DrawTraining();
 }
 function MaxFocus(stat)
@@ -278,6 +316,7 @@ function MaxFocus(stat)
     if(stat == "H" && GameData.Focus_Available >= 1){GameData.Focus_Training_Health += GameData.Focus_Available;}
 
 GameData.Focus_Available =  GameData.Focus_Total - GameData.Focus_Training_Attack - GameData.Focus_Training_Defense - GameData.Focus_Training_Health;
+UpdateFocusDistribution();
 DrawTraining();
 }
 
@@ -289,6 +328,7 @@ function DropFocus(stat)
     if(stat == "H" ){GameData.Focus_Training_Health =0;}
 
 GameData.Focus_Available =  GameData.Focus_Total - GameData.Focus_Training_Attack - GameData.Focus_Training_Defense - GameData.Focus_Training_Health;
+UpdateFocusDistribution();
 DrawTraining();
 }
 
@@ -300,6 +340,7 @@ function BalanceFocus()
     GameData.Focus_Training_Defense = bal;
     GameData.Focus_Training_Health = bal;
     GameData.Focus_Available =  GameData.Focus_Total - GameData.Focus_Training_Attack - GameData.Focus_Training_Defense - GameData.Focus_Training_Health;
+    UpdateFocusDistribution();
     DrawTraining();
 }
 
@@ -332,6 +373,10 @@ EnemyStatsTextAttack: document.getElementById('Data_Enemy_Attack_Power'),
 EnemyStatsTextDefense: document.getElementById('Data_Enemy_Defense_Power'),
 EnemyStatsTextLevel: document.getElementById('Data_Enemy_Level'),
 
+FocusBonusTextAttack: document.getElementById('Data_Focus_Bonus_Attack'),
+FocusBonusTextDefense: document.getElementById('Data_Focus_Bonus_Defense'),
+FocusBonusTextHealing: document.getElementById('Data_Focus_Bonus_Healing'),
+FocusBonusTextRegen: document.getElementById('Data_Focus_Bonus_Regen'),
 }
 
 
@@ -349,7 +394,7 @@ window.setInterval(function(){
 
 
 $(document).ready(function(){
-    UpdatePlayerStats();
+    UpdateFocusDistribution();
     PredictEnemyStats();
     
 });

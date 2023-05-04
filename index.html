@@ -75,13 +75,14 @@
     <div class="container" id="training" style="padding-top:40px;">
       <span><button type="button" class="btn btn-secondary btn-sm" onclick="BalanceFocus()">Auto-Balance</button></span>
       <span > Available Focus: <span class="blink_me" id="Data_Available_Focus"> 0</span></span>
-      <table class="table table-success table-striped" style="width: 60%;"> 
+      <table class="table table-success table-striped" style="width: 85%;"> 
         <thead>
           <tr>
             <th scope="col">Stat</th>
             <th scope="col">Focus</th>
             <th scope="col">Adjust </th>
             <th scope="col">Level</th>
+            <th scope="col">Focus Bonus</th>
             <th scope="col">Effect</th>
             <th scope="col" class="table-danger"> Enemy Stats @ Lvl <span id="Data_Enemy_Level">0</span></th>
           </tr>
@@ -98,11 +99,12 @@
               <button type="button" class="btn btn-info btn-sm" onclick="DropFocus('A')">Drop</button>
             </td>
             <td> <span id="Data_Current_Attack_Level"> 0</span> </td>
+            <td><span id="Data_Focus_Bonus_Attack"> 0</span></td>
             <td>Attack Damage <span id="Data_Player_Attack_Power">0</span></td>
             <td class="table-danger"> <span id="Data_Enemy_Attack_Power">0</span></td>
         </tr>
         <tr>
-          <td colspan="6">  <div class="progress">
+          <td colspan="7">  <div class="progress">
           <div id="Data_Attack_Training" class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
         </div> </td></tr>
   
@@ -117,12 +119,13 @@
             <button type="button" class="btn btn-info btn-sm" onclick="DropFocus('D')">Drop</button>
           </td>
           <td> <span id="Data_Current_Defense_Level"> 0</span> </td>
+          <td><span id="Data_Focus_Bonus_Defense"> 0</span></td>
           <td>Damage Blocked <span id="Data_Player_Defense_Power">0</span></td>
           <td class="table-danger"><span id="Data_Enemy_Defense_Power">0</span></td>
 
       </tr>
       <tr>
-        <td colspan="6">  <div class="progress">
+        <td colspan="7">  <div class="progress">
         <div id="Data_Defense_Training" class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
       </div> </td></tr>
 
@@ -137,12 +140,13 @@
           <button type="button" class="btn btn-info btn-sm" onclick="DropFocus('H')">Drop</button>
         </td>
         <td> <span id="Data_Current_Health_Level"> 0</span> </td>
-        <td>Max Health <span id="Data_Player_MaxHealth">0</span></td>
+        <td><span id="Data_Focus_Bonus_Healing"> 0</span></td>
+        <td>Max Health <span id="Data_Player_MaxHealth">0</span> <p>(+<span id="Data_Focus_Bonus_Regen">0</span> regen)</p></td>
         <td class="table-danger"><span id="Data_Enemy_MaxHealth">0</span></td>
 
     </tr>
     <tr>
-      <td colspan="6">  <div class="progress">
+      <td colspan="7">  <div class="progress">
       <div id="Data_Health_Training" class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
     </div> </td></tr>
       </table>
