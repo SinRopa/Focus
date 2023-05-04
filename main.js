@@ -240,21 +240,21 @@ function CheckTrainingLevelUps()
     {
         GameData.Training_Levels_Attack++;
         GameData.Training_Progress_Attack-=RequiredAttackExp;
-        UpdatePlayerStats();
+        UpdateFocusDistribution();
     }
 
     if(GameData.Training_Progress_Defense >= RequiredDefenseExp)
     {
         GameData.Training_Levels_Defense++;
         GameData.Training_Progress_Defense-=RequiredDefenseExp;
-        UpdatePlayerStats();
+        UpdateFocusDistribution();
     }
 
     if(GameData.Training_Progress_Health >= RequiredHealthExp)
     {
         GameData.Training_Levels_Health++;
         GameData.Training_Progress_Health-=RequiredHealthExp;
-        UpdatePlayerStats();
+        UpdateFocusDistribution();
     }
     GameData.Focus_Available =  GameData.Focus_Total - GameData.Focus_Training_Attack - GameData.Focus_Training_Defense - GameData.Focus_Training_Health;
     DrawTraining();
