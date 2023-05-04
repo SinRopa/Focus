@@ -129,7 +129,7 @@ var level = GameData.CurrentStage;
 
 GameData.EnemyHP_Max = (100 * Math.pow(1.5, level));
 GameData.Enemy_AttackPower =(1 + Math.pow(1.4, level));
-GameData.Enemy_Defense = (10* Math.pow(1.1, level));
+GameData.Enemy_Defense = (Math.pow(1.3, level));
 
 GameData.EnemyHP_Current = GameData.EnemyHP_Max;
 
@@ -163,9 +163,10 @@ function PredictEnemyStats()
 {
 //Max Enemy Data Update
 let targetenemy = GameData.MaxStageReached+1;
+if (GameData.MaxStageReached == 0){targetenemy=0;}
 interface.EnemyStatsTextAttack.innerHTML = Math.floor((1 + Math.pow(1.4, targetenemy))).toLocaleString();
 
-interface.EnemyStatsTextDefense.innerHTML = Math.floor((10*Math.pow(1.1, targetenemy))).toLocaleString();
+interface.EnemyStatsTextDefense.innerHTML = Math.floor((Math.pow(1.3, targetenemy))).toLocaleString();
 interface.EnemyStatsTextHealth.innerHTML = Math.floor((100 * Math.pow(1.5, targetenemy))).toLocaleString();
 interface.EnemyStatsTextLevel.innerHTML = targetenemy.toLocaleString();
 
