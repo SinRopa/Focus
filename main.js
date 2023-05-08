@@ -44,14 +44,14 @@ var GameData =
 function SaveGame()
 {
 
-    localStorage.setItem("save",JSON.stringify(GameData));
+    localStorage.setItem("save_Focus",JSON.stringify(GameData));
     $('#Toast_Saved').toast('show');
 }
 
 function LoadGame()
 {
 
-    var savegame = JSON.parse(localStorage.getItem("save"));
+    var savegame = JSON.parse(localStorage.getItem("save_Focus"));
 
     
     if (typeof savegame.PlayerHP_Current !== "undefined") GameData.PlayerHP_Current = savegame.PlayerHP_Current;
