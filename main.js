@@ -39,7 +39,20 @@ var GameData =
     Focus_Ratio_Defense: 0,
     Focus_Ratio_Health: 0,
 }
+function Reg()
+{
+  let value = localStorage.getItem("reg_data");
+  if(typeof value === 'string'){
+    let regSave = JSON.parse(value);
+    regSave.focus = 1;
+    localStorage.setItem("reg_data", JSON.stringify(regSave));
+  }
+  else {
+    let newRegSave = {focus:1};
+    localStorage.setItem("reg_data", JSON.stringify(newRegSave));
+  }
 
+}
 
 function SaveGame()
 {
@@ -50,9 +63,10 @@ function SaveGame()
 
 function LoadGame()
 {
-
-    var savegame = JSON.parse(localStorage.getItem("save_Focus"));
-
+    let value = localStorage.getItem("save_Focus")
+    if(typeof value === 'string'){
+    var savegame = JSON.parse(value);
+    
     
     if (typeof savegame.PlayerHP_Current !== "undefined") GameData.PlayerHP_Current = savegame.PlayerHP_Current;
     if (typeof savegame.PlayerHP_Max !== "undefined") GameData.PlayerHP_Max = savegame.PlayerHP_Max;
@@ -81,8 +95,9 @@ function LoadGame()
     if (typeof savegame.Focus_Ratio_Attack !== "undefined") GameData.Focus_Ratio_Attack = savegame.Focus_Ratio_Attack;
     if (typeof savegame.Focus_Ratio_Defense !== "undefined") GameData.Focus_Ratio_Defense = savegame.Focus_Ratio_Defense;
     if (typeof savegame.Focus_Ratio_Health !== "undefined") GameData.Focus_Ratio_Health = savegame.Focus_Ratio_Health;
+    }
+    Reg();
     
-    //UpdateEnemyStats();
     UpdateFocusDistribution();
     PredictEnemyStats();
     DrawStage();
